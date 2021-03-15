@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2BF541525FFDA5200C8D1A8 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BF541425FFDA5200C8D1A8 /* Renderer.swift */; };
+		A2BF542125FFE20200C8D1A8 /* RippleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BF542025FFE20200C8D1A8 /* RippleManager.swift */; };
 		A2DA324925FE1D38008AF0EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DA324825FE1D38008AF0EA /* AppDelegate.swift */; };
 		A2DA324B25FE1D38008AF0EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DA324A25FE1D38008AF0EA /* SceneDelegate.swift */; };
 		A2DA324D25FE1D38008AF0EA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DA324C25FE1D38008AF0EA /* ViewController.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A2BF541425FFDA5200C8D1A8 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		A2BF542025FFE20200C8D1A8 /* RippleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleManager.swift; sourceTree = "<group>"; };
 		A2DA324525FE1D38008AF0EA /* Ripple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ripple.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2DA324825FE1D38008AF0EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2DA324A25FE1D38008AF0EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,9 +75,11 @@
 				A2DA324825FE1D38008AF0EA /* AppDelegate.swift */,
 				A2DA324A25FE1D38008AF0EA /* SceneDelegate.swift */,
 				A2DA324C25FE1D38008AF0EA /* ViewController.swift */,
+				A2BF541425FFDA5200C8D1A8 /* Renderer.swift */,
 				A2DA326025FE7BE3008AF0EA /* Ripple.metal */,
 				A2DA326F25FE993B008AF0EA /* company.png */,
 				A2DA326B25FE8A54008AF0EA /* harold.jpg */,
+				A2BF542025FFE20200C8D1A8 /* RippleManager.swift */,
 			);
 			path = Ripple;
 			sourceTree = "<group>";
@@ -153,6 +159,8 @@
 				A2DA324D25FE1D38008AF0EA /* ViewController.swift in Sources */,
 				A2DA326125FE7BE3008AF0EA /* Ripple.metal in Sources */,
 				A2DA324925FE1D38008AF0EA /* AppDelegate.swift in Sources */,
+				A2BF542125FFE20200C8D1A8 /* RippleManager.swift in Sources */,
+				A2BF541525FFDA5200C8D1A8 /* Renderer.swift in Sources */,
 				A2DA324B25FE1D38008AF0EA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
