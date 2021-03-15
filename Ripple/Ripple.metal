@@ -40,13 +40,13 @@ vertex RasterizerData rippleVertex(unsigned int id [[vertex_id]])
     return out;
 }
 
-float genCircles(float2 uv, float2 origin, float time, float size)
+float circlesFunc(float2 uv, float2 origin, float time, float size)
 {
     float circle = time - length(uv.xy - origin.xy);
-    float concentric = smoothstep(0.5, 0.6, sin(circle * size)) //concentricity
+    float concentricity = smoothstep(0.5, 0.6, sin(circle * size))
         * smoothstep(1.0, 0.1, circle) // fade out
         * smoothstep(0, 0.1, circle); // fade in
-    return concentric;
+    return concentricity;
 }
 
 half3 rippleFunc(float2 uv, float rippleTime, const float freq, const float timeToDie)
@@ -92,7 +92,7 @@ fragment half4 rippleFragment(RasterizerData stageIn [[stage_in]],
     float concentric = 0;
     for(int i = 0; i < count; ++i)
     {
-        concentric += genCircles(uv, rippleData[i].origin, rippleData[i].time, 25);
+        concentric += circlesFunc(uv, rippleData[i].origin, rippleData[i].time, 25);
     }
     return backgroundTexture.sample(samp, stageIn.texcoord + concentric * attenuation);
 #endif
