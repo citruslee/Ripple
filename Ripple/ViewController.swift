@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     var timer: CADisplayLink!
     var backgroundImage: Renderer.Texture!
     var renderer: Renderer!
-    var rippleManager: RippleManager = RippleManager()
+    var rippleManager: RippleManager = RippleManager(lifeTimeInSeconds: 10)
     
     var resolution: simd_float2!
     

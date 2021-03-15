@@ -22,7 +22,15 @@ class RippleManager {
     var ripples: [RippleData] = []
     var startTimes: [Date] = []
     
-    let timeToDie = Float(10.0)
+    var timeToDie: Float
+    
+    init(lifeTimeInSeconds: Float) {
+        timeToDie = lifeTimeInSeconds
+    }
+    
+    func setRippleLifetime(lifeTime: Float) {
+        timeToDie = lifeTime
+    }
         
     func addRipple(clickPosition: simd_float2) {
         ripples.append(RippleData(currentTime: 0, clickPosition: clickPosition))
