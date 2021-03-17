@@ -27,8 +27,8 @@ class Renderer {
         let bitsPerComponent:Int = 8
     }
     
-    var device: MTLDevice?
-    var metalLayer: CAMetalLayer
+    private var device: MTLDevice?
+    private var metalLayer: CAMetalLayer
     
     init(view: UIView) {
         device = MTLCreateSystemDefaultDevice()
@@ -47,7 +47,10 @@ class Renderer {
             return nil
         }
         
-        let defaultLibrary = device.makeDefaultLibrary()!
+        guard let defaultLibrary = device.makeDefaultLibrary()  else {
+            assertionFailure("Could not create default shader library")
+            return nil
+        }
         let vertexProgram = defaultLibrary.makeFunction(name: vertexMain)
         let fragmentProgram = defaultLibrary.makeFunction(name: pixelMain)
         return Shader(vertexShader: vertexProgram, pixelShader: fragmentProgram)
@@ -95,12 +98,11 @@ class Renderer {
         return device.makeSamplerState(descriptor: sampler)
     }
     
-    func createRenderPassDescriptor(drawable: CAMetalDrawable, red: Double, green: Double, blue: Double) -> MTLRenderPassDescriptor {
+    func createRenderPassDescriptor(drawable: CAMetalDrawable, clearColour: UIColor) -> MTLRenderPassDescriptor {
         let renderPassDescriptor = MTLRenderPassDescriptor()
         renderPassDescriptor.colorAttachments[0].texture = drawable.texture
         renderPassDescriptor.colorAttachments[0].loadAction = .clear
-        //cornflower blue, a nice colour from my direct3d days <3
-        renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColor(red: red, green: green, blue: blue, alpha: 1.0)
+        renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColor(clearColour: clearColour, alpha: 1.0)
         return renderPassDescriptor
     }
     
@@ -120,11 +122,14 @@ class Renderer {
         
         let rowBytes = texture.width * texture.bytesPerPixel
         
-        let context = CGContext(data: nil, width: texture.width, height: texture.height, bitsPerComponent: texture.bitsPerComponent, bytesPerRow: rowBytes, space: colorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+        guard let context = CGContext(data: nil, width: texture.width, height: texture.height, bitsPerComponent: texture.bitsPerComponent, bytesPerRow: rowBytes, space: colorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else {
+            assertionFailure("Could not create CoreGraphics Context")
+            return nil
+        }
         let bounds = CGRect(x: 0, y: 0, width: Int(texture.width), height: Int(texture.height))
         context.clear(bounds)
         
-        if flip == false{
+        if flip == false {
             context.translateBy(x: 0, y: CGFloat(texture.height))
             context.scaleBy(x: 1.0, y: -1.0)
         }
@@ -144,4 +149,14 @@ class Renderer {
     func getLayer() -> CAMetalLayer {
         return metalLayer
     }
+    
+}
+
+extension MTLClearColor {
+    
+    init(clearColour: UIColor, alpha: Double) {
+        let colour = CIColor(color: clearColour)
+        self.init(red: Double(colour.red), green: Double(colour.green), blue: Double(colour.blue), alpha: alpha)
+    }
+    
 }
