@@ -40,7 +40,7 @@ vertex RasterizerData rippleVertex(unsigned int id [[vertex_id]])
     return out;
 }
 
-float circlesFunc(float2 uv, float2 origin, float time, float size)
+float circlesFunc(const float2 uv, const float2 origin, const float time, const float size)
 {
     float circle = time - length(uv.xy - origin.xy);
     float concentricity = smoothstep(0.5, 0.6, sin(circle * size))
@@ -49,7 +49,7 @@ float circlesFunc(float2 uv, float2 origin, float time, float size)
     return concentricity;
 }
 
-half3 rippleFunc(float2 uv, float rippleTime, const float freq, const float timeToDie)
+half3 rippleFunc(const float2 uv, const float rippleTime, const float freq, const float timeToDie)
 {
     //fmod to make it go from 0-1 in timeToDie seconds
     float t = fmod(rippleTime / timeToDie, 1.0);
