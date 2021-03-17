@@ -114,7 +114,10 @@ class Renderer {
         
         var texture = Texture(target: .type2D, width: 0, height: 0, depth: 1, format: .rgba8Unorm, path: Bundle.main.path(forResource: resourceName, ofType: xtension) ?? "")
         
-        let image = (UIImage(contentsOfFile: texture.path)?.cgImage)!
+        guard let image = UIImage(contentsOfFile: texture.path)?.cgImage else {
+           assertionFailure("Device not present")
+           return nil
+        }
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         
         texture.width = image.width
@@ -140,7 +143,10 @@ class Renderer {
         texture.target = texDescriptor.textureType
         texture.texture = device.makeTexture(descriptor: texDescriptor)
         
-        let pixelsData = context.data!
+        guard let pixelsData = context.data else {
+            assertionFailure("Could not get pixel data")
+            return nil
+        }
         let region = MTLRegionMake2D(0, 0, Int(texture.width), Int(texture.height))
         texture.texture.replace(region: region, mipmapLevel: 0, withBytes: pixelsData, bytesPerRow: Int(rowBytes))
         return texture

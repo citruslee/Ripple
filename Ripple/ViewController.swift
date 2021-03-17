@@ -11,10 +11,10 @@ import simd
 
 class ViewController: UIViewController {
     
-    var timer: CADisplayLink!
+    private var timer: CADisplayLink!
     
-    var renderer: Renderer?
-    var rippleManager: RippleManager?
+    private var renderer: Renderer?
+    private var rippleManager: RippleManager?
     
     override func viewDidLoad() {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTap))
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         rippleManager = RippleManager(lifeTimeInSeconds: 10, renderer: renderer, displayResolution:  simd_float2(Float(view.frame.size.width), Float(view.frame.size.height)))
     }
     
-    @objc func renderFunc() {
+    @objc private func renderFunc() {
         autoreleasepool {
             guard let renderer = renderer else {
                 assertionFailure("Renderer not present")
@@ -41,8 +41,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc func didTap(_ recognizer: UITapGestureRecognizer) {
-        
+    @objc private func didTap(_ recognizer: UITapGestureRecognizer) {
         guard let ripple = rippleManager else {
             assertionFailure("RippleManager not present")
             return

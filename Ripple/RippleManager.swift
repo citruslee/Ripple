@@ -30,8 +30,11 @@ class RippleManager {
         timeToDie = lifeTimeInSeconds
         
         commandQueue = renderer.createCommandQueue()
-        let shader = renderer.compileShader(vertexMain: "rippleVertex", pixelMain: "rippleFragment")
-        pso = renderer.createPipelineState(shader: shader!)
+        guard let shader = renderer.compileShader(vertexMain: "rippleVertex", pixelMain: "rippleFragment") else {
+            assertionFailure("Shader could not be compiled")
+            return
+        }
+        pso = renderer.createPipelineState(shader: shader)
         samplerState = renderer.createDefaultSamplerState()
         
         //backgroundImage = renderer.createAndLoadTexture(resourceName: "harold", xtension: "jpg", flip: false)
